@@ -1,4 +1,4 @@
-package com.aleshka.firstkotlinapp.presentation.ui
+package com.aleshka.firstkotlinapp.presentation.ui.activities
 
 import android.content.Intent
 import android.os.Bundle

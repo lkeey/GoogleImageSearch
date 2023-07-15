@@ -1,4 +1,4 @@
-package com.aleshka.firstkotlinapp.api
+package com.aleshka.firstkotlinapp.data.interfaces
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

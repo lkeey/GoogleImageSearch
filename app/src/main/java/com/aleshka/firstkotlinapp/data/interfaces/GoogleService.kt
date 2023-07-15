@@ -1,6 +1,6 @@
-package com.aleshka.firstkotlinapp.api
+package com.aleshka.firstkotlinapp.data.interfaces
 
-import com.aleshka.firstkotlinapp.models.GoogleResults
+import com.aleshka.firstkotlinapp.data.models.GoogleResults
 import retrofit2.http.GET
 import retrofit2.http.Query
 

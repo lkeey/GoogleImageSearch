@@ -13,9 +13,10 @@ import coil.load
 import coil.request.CachePolicy
 import coil.transform.RoundedCornersTransformation
 import com.aleshka.firstkotlinapp.R
-import com.aleshka.firstkotlinapp.models.GoogleItem
+import com.aleshka.firstkotlinapp.data.models.GoogleItem
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class InfoFragment : Fragment() {
+class InfoFragment : BottomSheetDialogFragment() {
 
     private lateinit var imgGoogle: ImageView
     private lateinit var receivedImg: GoogleItem
@@ -40,7 +41,7 @@ class InfoFragment : Fragment() {
     private fun receiveData() {
         var bundle = arguments
 
-        receivedImg = bundle!!.getBundle("img") as GoogleItem
+        receivedImg = bundle!!.getSerializable("img") as GoogleItem
     }
 
     private fun init(view: View) {

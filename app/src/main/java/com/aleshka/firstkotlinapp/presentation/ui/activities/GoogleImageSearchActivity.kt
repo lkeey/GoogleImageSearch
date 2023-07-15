@@ -1,32 +1,33 @@
-package com.aleshka.firstkotlinapp.presentation.ui
+package com.aleshka.firstkotlinapp.presentation.ui.activities
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx. recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
 import coil.load
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.aleshka.firstkotlinapp.R
-import com.aleshka.firstkotlinapp.api.GoogleApi
-import com.aleshka.firstkotlinapp.api.GoogleService
-import com.aleshka.firstkotlinapp.models.GoogleResults
+import com.aleshka.firstkotlinapp.data.interfaces.GoogleApi
+import com.aleshka.firstkotlinapp.data.interfaces.GoogleService
+import com.aleshka.firstkotlinapp.data.interfaces.ImgClickedListener
+import com.aleshka.firstkotlinapp.data.models.GoogleItem
+import com.aleshka.firstkotlinapp.data.models.GoogleResults
 import com.aleshka.firstkotlinapp.presentation.adapters.GoogleImageAdapter
+import com.aleshka.firstkotlinapp.presentation.ui.fragments.InfoFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
-class GoogleImageSearchActivity : AppCompatActivity() {
+class GoogleImageSearchActivity : AppCompatActivity(), ImgClickedListener {
 
     companion object {
         private const val TAG: String = "GoogleSearchActivity"
@@ -87,7 +88,7 @@ class GoogleImageSearchActivity : AppCompatActivity() {
 
                         recyclerImg.layoutManager =
                             LinearLayoutManager(this@GoogleImageSearchActivity)
-                        recyclerImg.adapter = googleRes?.items?.let { GoogleImageAdapter(it) }
+                        recyclerImg.adapter = googleRes?.items?.let { GoogleImageAdapter(it, this@GoogleImageSearchActivity) }
 
                     } catch (ex: Exception) {
                         Log.i(TAG, "exception - ${ex.stackTraceToString()}")
@@ -147,6 +148,17 @@ class GoogleImageSearchActivity : AppCompatActivity() {
             imageLoader.execute(request)
         }
 
+    }
+
+    override fun onItemClicked(item: GoogleItem?) {
+        val fragment = InfoFragment()
+
+        val bundle = Bundle()
+        bundle.putSerializable("img", item)
+
+        fragment.arguments = bundle
+
+        fragment.show(supportFragmentManager, "info-fragment")
     }
 
 }
