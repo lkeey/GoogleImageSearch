@@ -2,13 +2,12 @@ package com.aleshka.firstkotlinapp.presentation.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.RoundedCornersTransformation
@@ -22,6 +21,7 @@ class InfoFragment : BottomSheetDialogFragment() {
     private lateinit var receivedImg: GoogleItem
     private lateinit var imgUrl: TextView
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,10 +38,11 @@ class InfoFragment : BottomSheetDialogFragment() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun receiveData() {
-        var bundle = arguments
+        val bundle = arguments
 
-        receivedImg = bundle!!.getSerializable("img") as GoogleItem
+        receivedImg = bundle?.getSerializable("img", GoogleItem::class.java)!!
     }
 
     private fun init(view: View) {
